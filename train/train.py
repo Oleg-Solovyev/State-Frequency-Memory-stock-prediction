@@ -5,7 +5,7 @@ import numpy as np
 import argparse
 import distutils.util
 
-np.set_printoptions(threshold=np.nan)
+np.set_printoptions(threshold=0)
 
 #Main Run Thread
 if __name__=='__main__':
