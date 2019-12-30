@@ -11,16 +11,16 @@ np.set_printoptions(threshold=0)
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
 	# n-step prediction
-    parser.add_argument('-s','--step', type=int, default=3)
+    parser.add_argument('-s','--step', type=int, default=1)
 	# data path
     parser.add_argument('-d','--data_file', type=str, default='../dataset/data.npy')
 	# dimension
-    parser.add_argument('-hd','--hidden_dim', type=int, default=50)
-    parser.add_argument('-f','--freq_dim', type=int, default=10)
+    parser.add_argument('-hd','--hidden_dim', type=int, default=5)
+    parser.add_argument('-f','--freq_dim', type=int, default=1)
 	# training parameter
-    parser.add_argument('-n','--niter', type=int, default=4000)
-    parser.add_argument('-ns', '--nsnapshot', type=int, default=20)
-    parser.add_argument('-lr', '--learning_rate', type=float, default=0.01)
+    parser.add_argument('-n','--niter', type=int, default=4)
+    parser.add_argument('-ns', '--nsnapshot', type=int, default=2)
+    parser.add_argument('-lr', '--learning_rate', type=float, default=0.1)
     
     args = parser.parse_args()
     step = args.step
@@ -49,7 +49,7 @@ if __name__=='__main__':
             validation_split=0)
         
         num_iter = str(args.nsnapshot * (ii+1))
-        model.save_weights('./snapshot/weights{}.hdf5'.format(num_iter), overwrite = True)
+        model.save_weights('weights{}.hdf5'.format(num_iter), overwrite = True)
         
         predicted = model.predict(X_train)
         train_error = np.sum((predicted[:,:,0] - y_train[:,:,0])**2) / (predicted.shape[0] * predicted.shape[1])
